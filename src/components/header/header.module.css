@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background: radial-gradient(circle, transparent 20%, var(--color-v) 85%),
+    linear-gradient(to right, var(--color), var(--color)), var(--image);
+  background-position: center center;
+  background-size: cover;
+  background-blend-mode: var(--blend-top, normal),
+    var(--blend-bottom, saturation), normal;
+
+  --image: url("../../images/news.jpg");
+
+  --color-v: black;
+  --color: grey;
+}
+
+.container {
+  backdrop-filter: blur(5px);
+  margin: 0 auto;
+  width: 100%;
+  padding: 120px 100px 150px;
+  box-sizing: border-box;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 56px;
+  margin: 0 auto;
+}
+
+.subtitle {
+  font-size: 42px;
+  font-weight: 400;
+  margin: 10px auto 0;
+  color: #f3f3f3;
+}
