@@ -1,9 +1,12 @@
 import { IComments } from "../../servises/types/news";
-import React from "react";
-import { FC, ReactNode, useEffect } from "react";
-import styles from "./styles.module.css";
+import React, { useState } from "react";
+import { FC } from "react";
+import styles from "./styles.module.scss";
 import { useDispatch, useSelector } from "../../servises/hooks";
-import { getCommentsChildrenFetch } from "../../servises/actions/actionCreators";
+import {
+  commetsNumberFetching,
+  getCommentsChildrenFetch,
+} from "../../servises/actions/actionCreators";
 
 interface IComment {
   data: IComments;
@@ -11,26 +14,32 @@ interface IComment {
 
 export const Comment: FC<IComment> = ({ data }) => {
   const dispatch = useDispatch();
+  const { commentsList } = useSelector((state) => state.newsReducer);
+  const [showComments, setShowComments] = useState(false);
 
-  const { comments } = useSelector((state) => state.newsReducer);
-  
   const childrenCommits = React.useMemo(() => {
-        const com = comments.find(item => item.id === data.id)
-        if (com?.children) {
-            return com
-        }
-  }, [comments])
+    const com = commentsList.find((item) => item.parent === data.id);
+    return com;
+  }, [commentsList]);
 
   const getComments = () => {
     dispatch(getCommentsChildrenFetch(data));
+    setShowComments(false);
   };
+
+  React.useEffect(() => {
+    if (data.kids) {
+      setShowComments(true);
+    }
+    dispatch(commetsNumberFetching());
+  }, []);
 
   return (
     <article className={styles.comment}>
       <h4 className={styles.text}>{data.text}</h4>
       <div className={styles.box}>
         <span>Автор: {data.by}</span>
-        {data.kids && (
+        {showComments && (
           <button
             type="button"
             onClick={getComments}
@@ -38,7 +47,10 @@ export const Comment: FC<IComment> = ({ data }) => {
           ></button>
         )}
       </div>
-      {childrenCommits && 123}
+      {childrenCommits &&
+        childrenCommits.comments.map((item, index) => (
+          <Comment data={item} key={index} />
+        ))}
     </article>
   );
 };

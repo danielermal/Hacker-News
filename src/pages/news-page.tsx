@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Header } from "../components/header/header";
 import { Material } from "../components/material/material";
-import { getNewsItemFetch } from "../servises/actions/actionCreators";
+import {
+  clearComments,
+  getNewsItemFetch,
+} from "../servises/actions/actionCreators";
 import { useDispatch, useSelector } from "../servises/hooks";
 
 export const NewsPage = () => {
@@ -15,6 +18,10 @@ export const NewsPage = () => {
       dispatch(getNewsItemFetch(id));
     }
   }, [id]);
+
+  useEffect(() => {
+    dispatch(clearComments());
+  }, []);
 
   return (
     <>
