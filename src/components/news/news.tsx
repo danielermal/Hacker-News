@@ -11,7 +11,7 @@ export const News: FC = () => {
   const { news, idList, isLoading } = useSelector((state) => state.newsReducer);
   const [numberNews, setNumberNews] = useState(0);
   const [fetching, setFetching] = useState(true);
-  const [scroll, setScroll] = useState(false)
+  const [scroll, setScroll] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,9 +49,9 @@ export const News: FC = () => {
     const scrolled = window.pageYOffset;
     const coords = document.documentElement.clientHeight;
     if (scrolled > coords) {
-      setScroll(true)
+      setScroll(true);
     } else {
-      setScroll(false)
+      setScroll(false);
     }
   };
 
@@ -63,9 +63,9 @@ export const News: FC = () => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
-  }
+  };
 
   return (
     <main className={styles.main}>
@@ -90,10 +90,16 @@ export const News: FC = () => {
           </button>
         </div>
         <div className={styles.container}>
-          {news.map((item, index) => {
+          {news.slice(0, 100).map((item, index) => {
             return <NewsItem data={item} number={index + 1} key={index} />;
           })}
-          {scroll && <button type="button" className={styles.goup} onClick={scrollTop} ></button>}
+          {scroll && (
+            <button
+              type="button"
+              className={styles.goup}
+              onClick={scrollTop}
+            ></button>
+          )}
         </div>
       </section>
     </main>

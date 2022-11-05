@@ -7,24 +7,38 @@
   --color-v: rgb(110, 76, 76);
   --color: rgb(105, 105, 105);
   margin: 0 auto;
+  min-height: 100vh;
 }
 
 .section {
   padding: 50px 150px 50px 100px;
   width: 100%;
   box-sizing: border-box;
+
+  @media screen and (max-width: 880px) {
+    padding: 30px 50px 30px 20px;
+  }
 }
 
 .title {
   font-weight: 500;
   font-size: 32px;
   margin: 0;
+
+  @media screen and (max-width: 880px) {
+    font-size: 24px;
+  }
 }
 
 .title_container {
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  @media screen and (max-width: 880px) {
+    flex-direction: column;
+    row-gap: 30px;
+  }
 }
 
 .update {
@@ -69,27 +83,34 @@
   background-image: url(../../images/BacktoTop.png);
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  transition: opacity .4s linear;
+  transition: opacity 0.4s linear;
+
+  @media screen and (max-width: 880px) {
+    bottom: 80px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .goup:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .spinner {
   animation: rotate 2s linear infinite;
   width: 50px;
   height: 50px;
-  
+
   & .path {
     stroke: rgb(68, 149, 230);
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
-  
 }
 
 @keyframes rotate {

@@ -8,16 +8,17 @@ import { NewsPage } from "../../pages/news-page";
 export const App: FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    document.title = "Hacker news"
     dispatch(fetchId());
   }, []);
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={'/'}>
+        <Route exact path={"/"}>
           <Index />
         </Route>
-        <Route path={'/news/:id'}>
+        <Route path={"/news/:id"}>
           <NewsPage />
         </Route>
       </Switch>

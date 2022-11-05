@@ -1,0 +1,48 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(44, 43, 43, 0.5);
+  max-width: 1000px;
+  padding: 15px 30px;
+  row-gap: 15px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 880px) {
+    padding: 10px 15px;
+  }
+}
+
+.text {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 0;
+
+  @media screen and (max-width: 880px) {
+    font-size: 16px;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: space-between;
+}
+
+.button {
+  display: flex;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  width: 20px;
+  height: 20px;
+  background-image: url("../../images/icons8.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: opacity 0.4s ease-in;
+}
+
+.button:hover {
+  opacity: 0.3;
+}

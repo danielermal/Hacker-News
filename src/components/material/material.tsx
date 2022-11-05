@@ -5,7 +5,10 @@ import back from "../../images/icons8-u-turn-to-left-50.png";
 import { INews } from "../../servises/types/news";
 import { Comment } from "../comment/comment";
 import { useDispatch, useSelector } from "../../servises/hooks";
-import { getCommentsFetch } from "../../servises/actions/actionCreators";
+import {
+  getCommentsFetch,
+  getNewsItemFetch,
+} from "../../servises/actions/actionCreators";
 
 interface IMaterial {
   data: INews;
@@ -14,16 +17,19 @@ interface IMaterial {
 export const Material: FC<IMaterial> = ({ data }) => {
   const dispatch = useDispatch();
 
-  const { comments, isLoading } = useSelector((state) => state.newsReducer);
-
-  console.log(isLoading);
-  
+  const { comments, isLoading, commentsNumber } = useSelector(
+    (state) => state.newsReducer
+  );
 
   useEffect(() => {
     if (data.kids) {
       dispatch(getCommentsFetch(data.kids));
     }
   }, [data.kids]);
+
+  const updateComments = () => {
+    dispatch(getNewsItemFetch(String(data.id)));
+  };
 
   return (
     <main className={styles.main}>
@@ -42,25 +48,37 @@ export const Material: FC<IMaterial> = ({ data }) => {
           Читать новость
         </a>
         <div className={styles.comments}>
-        {!isLoading ? (
-              "Комментарии:"
-            ) : (
-              <svg className={styles.spinner} viewBox="0 0 50 50">
-                <circle
-                  className={styles.path}
-                  cx="25"
-                  cy="25"
-                  r="20"
-                  fill="none"
-                  strokeWidth="5"
-                ></circle>
-              </svg>
-            )}
-          {comments.map((item, index) => (
-            <div className={styles.container} key={index}>
-              <Comment data={item} key={index} />
-            </div>
-          ))}
+          <div className={styles.loading}>
+            <span>Комментарии: {commentsNumber}</span>
+            <button
+              type="button"
+              className={styles.update}
+              onClick={updateComments}
+            >
+              {!isLoading ? (
+                "Обновить комментарии"
+              ) : (
+                <svg className={styles.spinner} viewBox="0 0 50 50">
+                  <circle
+                    className={styles.path}
+                    cx="25"
+                    cy="25"
+                    r="20"
+                    fill="none"
+                    strokeWidth="5"
+                  ></circle>
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {data.kids &&
+            comments &&
+            comments.map((item, index) => (
+              <div className={styles.container} key={index}>
+                <Comment data={item} key={index} />
+              </div>
+            ))}
         </div>
       </section>
     </main>

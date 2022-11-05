@@ -1,18 +1,18 @@
 import { FC } from "react";
 import { INews } from "../../servises/types/news";
 import { useHistory } from "react-router-dom";
-import styles from "./styles.module.css";
+import styles from "./styles.module.scss";
 
 interface INewsItem {
   data: INews;
-  number: number
+  number: number;
 }
 
 export const NewsItem: FC<INewsItem> = ({ data, number }) => {
-  const history = useHistory()
+  const history = useHistory();
   const openNews = () => {
-    history.replace({pathname: `/news/${data.id}`})
-  }
+    history.replace({ pathname: `/news/${data.id}` });
+  };
   return (
     <article className={styles.item} onClick={openNews}>
       <div className={styles.containter}>
